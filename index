@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Get a Job in Cybersecurity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e0f;
+    --surface: #111618;
+    --surface2: #1a2022;
+    --border: #1e2a2e;
+    --accent: #00e5a0;
+    --accent2: #00b3ff;
+    --accent3: #ff4b6e;
+    --text: #d4e0e4;
+    --muted: #5a7a82;
+    --heading: #eaf4f7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(10,14,15,0.97);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-right: auto;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .nav-links { display: flex; }
+
+  .nav-simple {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 1.1rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-left: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+    font-family: 'Space Mono', monospace;
+    user-select: none;
+  }
+  .nav-simple:hover { color: var(--accent); background: rgba(0,229,160,0.04); }
+  .nav-simple.active { color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
+
+  .nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid var(--border);
+  }
+
+  .nav-item-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0 1.1rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .nav-item:hover .nav-item-label { color: var(--accent); background: rgba(0,229,160,0.04); }
+  .nav-item-label.active { color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
+
+  .caret {
+    font-size: 0.5rem;
+    opacity: 0.45;
+    transition: transform 0.2s, opacity 0.2s;
+    line-height: 1;
+  }
+  .nav-item:hover .caret { transform: rotate(180deg); opacity: 1; }
+
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 56px;
+    right: 0;
+    min-width: 210px;
+    background: rgba(10,14,15,0.99);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    flex-direction: column;
+    z-index: 300;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  }
+  .nav-item:hover .nav-dropdown { display: flex; }
+
+  .nav-dd-item {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.8rem 1.1rem;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+    font-family: 'Space Mono', monospace;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+  }
+  .nav-dd-item:last-child { border-bottom: none; }
+  .nav-dd-item:hover { color: var(--accent); background: rgba(0,229,160,0.07); }
+  .nav-dd-item .dda { margin-left: auto; color: var(--accent); font-size: 0.6rem; }
+
+  /* ── PAGES ── */
+  .page { display: none; padding-top: 56px; min-height: 100vh; position: relative; z-index: 1; }
+  .page.active { display: block; }
+  .subpage-detail { display: none; padding-top: 56px; min-height: 100vh; position: relative; z-index: 1; }
+  .subpage-detail.active { display: block; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page.active > *, .subpage-detail.active > * { animation: fadeInUp 0.35s ease both; }
+
+  /* ── HOME ── */
+  .home-top {
+    padding: 5rem 4rem 3.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .home-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.home-left {
+  flex: 1;
+  max-width: 700px;
+}
+
+.home-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* stack cards vertically instead of grid */
+.home-right .section-card {
+  width: 100%;
+}
+
+/* mobile fix */
+@media (max-width: 900px) {
+  .home-layout {
+    flex-direction: column;
+  }
+}
+
+  .hero-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 22px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4vw, 3.8rem);
+    line-height: 1.05;
+    color: var(--heading);
+    margin-bottom: 1.75rem;
+    max-width: 800px;
+  }
+  .hero-title span { color: var(--accent); }
+
+  .abstract-block {
+    font-size: 0.83rem;
+    line-height: 1.88;
+    color: var(--muted);
+    max-width: 780px;
+    margin-bottom: 2rem;
+  }
+
+  .tips-inline {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+  .tips-inline h4 {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.85rem;
+  }
+  .tips-inline ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .tips-inline li {
+    font-size: 0.77rem;
+    color: var(--muted);
+    line-height: 1.65;
+    padding-left: 1.15rem;
+    position: relative;
+  }
+  .tips-inline li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--accent);
+    color: #000;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .hero-cta:hover { background: #00ffb3; transform: translateX(3px); }
+
+  .home-cards {
+    padding: 3rem 4rem 4.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .section-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .section-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--card-accent, var(--accent));
+    transition: width 0.2s;
+  }
+  .section-card:hover { border-color: var(--card-accent, var(--accent)); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+  .section-card:hover::before { width: 6px; }
+
+  .card-num { font-size: 0.64rem; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 0.55rem; text-transform: uppercase; }
+  .card-title { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--heading); margin-bottom: 0.5rem; }
+  .card-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── SECTION PAGES ── */
+  .section-hero {
+    padding: 4rem 4rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-hero-tag {
+    font-size: 0.64rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-hero-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--heading);
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-abstract {
+    font-size: 0.82rem;
+    line-height: 1.88;
+    color: var(--muted);
+    max-width: 740px;
+    margin-bottom: 1.75rem;
+  }
+
+  .tips-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    max-width: 580px;
+  }
+  .tips-box h4 {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.85rem;
+  }
+  .tips-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .tips-box li {
+    font-size: 0.77rem;
+    color: var(--muted);
+    line-height: 1.65;
+    padding-left: 1.15rem;
+    position: relative;
+  }
+  .tips-box li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+  .subpage-grid {
+    padding: 2.5rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .resource-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .resource-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .resource-card:hover { border-color: rgba(0,229,160,0.3); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+  .resource-card:hover::after { transform: scaleX(1); }
+
+  .resource-icon { font-size: 1.5rem; }
+  .resource-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--heading); }
+  .resource-subtitle { font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .resource-desc { font-size: 0.78rem; line-height: 1.7; color: var(--muted); flex: 1; }
+
+  .cert-badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem; }
+  .cert-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+    font-size: 0.67rem;
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .card-view-btn {
+    font-size: 0.67rem;
+    color: var(--accent);
+    margin-top: 0.4rem;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── DETAIL PAGES ── */
+  .detail-hero {
+    padding: 4rem 4rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .back-btn {
+    font-size: 0.67rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+    font-family: 'Space Mono', monospace;
+    border: none;
+    background: none;
+  }
+  .back-btn:hover { color: var(--accent); }
+
+  .detail-subtitle {
+    font-size: 0.67rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: var(--heading);
+    line-height: 1.1;
+  }
+
+  .detail-body {
+    padding: 3rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .detail-content { display: flex; flex-direction: column; gap: 2rem; }
+
+  .detail-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .detail-block p { font-size: 0.83rem; line-height: 1.88; color: var(--text); }
+
+  .detail-block ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .detail-block ul li {
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.65;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .detail-block ul li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.58rem; top: 0.28rem; }
+
+  .detail-sidebar { display: flex; flex-direction: column; gap: 1.25rem; position: sticky; top: 72px; }
+
+  .sidebar-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+  }
+  .sidebar-box h4 {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-box p { font-size: 0.78rem; line-height: 1.78; color: var(--muted); }
+
+  .visit-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: var(--accent);
+    color: #000;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.9rem 1.25rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .visit-link:hover { background: #00ffb3; }
+
+  .accent-green { --card-accent: #00e5a0; }
+  .accent-blue  { --card-accent: #00b3ff; }
+  .accent-red   { --card-accent: #ff4b6e; }
+
+  @media (max-width: 900px) {
+    .home-top, .section-hero, .detail-hero { padding: 3rem 2rem 2rem; }
+    .home-cards, .subpage-grid { grid-template-columns: 1fr; padding: 2rem; }
+    .detail-body { grid-template-columns: 1fr; padding: 2rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">CyberCareer</div>
+  <div class="nav-links">
+
+    <div class="nav-simple" id="nav-home" onclick="showPage('home')">Home</div>
+
+    <div class="nav-item">
+      <div class="nav-item-label" id="nav-certs" onclick="showPage('certs')">
+        Certifications <span class="caret">▼</span>
+      </div>
+      <div class="nav-dropdown">
+        <div class="nav-dd-item" onclick="showDetail('comptia')">CompTIA <span class="dda">→</span></div>
+        <div class="nav-dd-item" onclick="showDetail('offsec')">Offensive Security <span class="dda">→</span></div>
+        <div class="nav-dd-item" onclick="showDetail('sans')">SANS Institute <span class="dda">→</span></div>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <div class="nav-item-label" id="nav-interns" onclick="showPage('interns')">
+        Internships <span class="caret">▼</span>
+      </div>
+      <div class="nav-dropdown">
+        <div class="nav-dd-item" onclick="showDetail('linkedin')">LinkedIn <span class="dda">→</span></div>
+        <div class="nav-dd-item" onclick="showDetail('usajobs')">USAJOBS <span class="dda">→</span></div>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <div class="nav-item-label" id="nav-tools" onclick="showPage('tools')">
+        Tools <span class="caret">▼</span>
+      </div>
+      <div class="nav-dropdown">
+        <div class="nav-dd-item" onclick="showDetail('wireshark')">Wireshark <span class="dda">→</span></div>
+        <div class="nav-dd-item" onclick="showDetail('splunk')">Splunk <span class="dda">→</span></div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="page-home">
+  <div class="home-top">
+    <div class="hero-tag">Student Career Guide</div>
+    <h1 class="hero-title">How to Get a Job in <span>Cybersecurity</span></h1>
+
+<div class="home-layout">
+
+    <div class="home-left">
+     <div class="abstract-block">
+      Cyber Career is an online resource guide designed to help students understand the process of entering the cybersecurity field. It provides a structured overview of the key steps required to become job-ready, including earning certifications, gaining internship experience, and learning industry tools. The site organizes these topics into three main sections, each of which contains additional pages that focus on specific resources such as certification providers, job platforms, and commonly used cybersecurity tools.
+      <br><br>
+      The content of the site is designed to simplify what can otherwise feel like an overwhelming career path. Instead of presenting too many options, it highlights the most relevant and widely used resources in cybersecurity and explains how each one connects to real-world job requirements. This makes the site especially useful for students who are unsure where to begin or how to prioritize their time when preparing for a career in cybersecurity.
+    </div>
+
+    <div class="tips-inline">
+      <h4>How to use this site effectively</h4>
+      <ul>
+        <li>Start with the Certifications section if you are new to cybersecurity concepts</li>
+        <li>Move to the Internships section to begin applying for real-world experience</li>
+        <li>Use the Tools section to build hands-on skills that you can show to employers</li>
+      </ul>
+    </div>
+    <br>
+    <button class="hero-cta" onclick="showPage('certs')">Start Here: Certifications →</button>
+  </div>
+
+  <div class="home-right">
+    <div class="section-card accent-green" onclick="showPage('certs')">
+      <div class="card-num">01 / Section</div>
+      <div class="card-title">Certifications</div>
+      <div class="card-desc">CompTIA, OSCP, GIAC — learn which certs employers care about and how to build your credentials in a structured way.</div>
+    </div>
+    <div class="section-card accent-blue" onclick="showPage('interns')">
+      <div class="card-num">02 / Section</div>
+      <div class="card-title">Internships</div>
+      <div class="card-desc">Real-world experience beats paper credentials. Find out how and where to land your first cybersecurity internship.</div>
+    </div>
+    <div class="section-card accent-red" onclick="showPage('tools')">
+      <div class="card-num">03 / Section</div>
+      <div class="card-title">Tools</div>
+      <div class="card-desc">Wireshark, Splunk, and more — the hands-on tools that show employers you can actually do the work.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ CERTIFICATIONS ══ -->
+<div class="page" id="page-certs">
+  <div class="section-hero">
+    <div class="section-hero-tag">Section 01 — Certifications</div>
+    <h2 class="section-hero-title">Prove What You Know</h2>
+    <div class="section-abstract">
+      The Certifications section explains what cybersecurity certifications are and how they are used to demonstrate knowledge and skills to employers. Certifications are professional credentials issued by organizations that confirm a person has learned specific technical concepts or practices. This section introduces the role certifications play in the hiring process and why they are especially valuable for students who may not yet have work experience.
+      <br><br>
+      The section includes information about major certification providers such as CompTIA, Offensive Security, and SANS Institute. It explains how each provider differs in terms of difficulty, focus, and career relevance. This information is useful because it helps students understand which certifications align with their goals and how to approach building their credentials in a structured way.
+    </div>
+    <div class="tips-box">
+      <h4>Tips for using this section effectively</h4>
+      <ul>
+        <li>Begin with entry-level certifications before attempting advanced ones</li>
+        <li>Choose certifications that align with your intended career path</li>
+        <li>Combine certifications with hands-on labs or projects for better understanding</li>
+      </ul>
+    </div>
+  </div>
+  <div class="subpage-grid">
+    <div class="resource-card accent-green" onclick="showDetail('comptia')">
+      <div class="resource-icon">🏅</div>
+      <div class="resource-title">CompTIA</div>
+      <div class="resource-subtitle">Beginner Friendly · Vendor-Neutral</div>
+      <div class="resource-desc">Vendor-neutral certifications covering foundational and intermediate cybersecurity skills. Security+, Network+, and CySA+ are recognized by employers worldwide and often required for entry-level and government roles.</div>
+      <div class="cert-badges"><span class="cert-badge">Security+</span><span class="cert-badge">Network+</span><span class="cert-badge">CySA+</span></div>
+      <div class="card-view-btn">View Details →</div>
+    </div>
+    <div class="resource-card accent-red" onclick="showDetail('offsec')">
+      <div class="resource-icon">⚔️</div>
+      <div class="resource-title">Offensive Security</div>
+      <div class="resource-subtitle">Hands-On · Pentesting Focus</div>
+      <div class="resource-desc">Hands-on training and certifications for offensive security roles. The OSCP requires completing real penetration testing challenges — no multiple choice. Widely respected for ethical hacking and red team careers.</div>
+      <div class="cert-badges"><span class="cert-badge">OSCP</span><span class="cert-badge">OSEP</span><span class="cert-badge">OSED</span></div>
+      <div class="card-view-btn">View Details →</div>
+    </div>
+    <div class="resource-card accent-blue" onclick="showDetail('sans')">
+      <div class="resource-icon">🏛️</div>
+      <div class="resource-title">SANS Institute</div>
+      <div class="resource-subtitle">Advanced · Enterprise &amp; Gov</div>
+      <div class="resource-desc">Advanced cybersecurity training and GIAC certifications trusted in enterprise and government environments. Rigorous, practitioner-taught, and often employer-sponsored for mid-to-senior professionals.</div>
+      <div class="cert-badges"><span class="cert-badge">GIAC</span><span class="cert-badge">GSEC</span><span class="cert-badge">GCIH</span><span class="cert-badge">GPEN</span></div>
+      <div class="card-view-btn">View Details →</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ INTERNSHIPS ══ -->
+<div class="page" id="page-interns">
+  <div class="section-hero">
+    <div class="section-hero-tag">Section 02 — Internships</div>
+    <h2 class="section-hero-title">Get in the Room</h2>
+    <div class="section-abstract">
+      The Internships section focuses on the importance of gaining real-world experience while pursuing a cybersecurity career. Internships allow students to apply what they have learned in a practical setting and help them develop both technical and professional skills. This section explains how internships contribute to career development and why they are often a key factor in getting hired.
+      <br><br>
+      The content includes information about where to find internships and how they can lead to full-time job opportunities. It highlights platforms such as LinkedIn and USAJOBS, which are commonly used to search for cybersecurity roles. This section is especially useful for students because it emphasizes the importance of experience and provides guidance on how to begin building it.
+    </div>
+    <div class="tips-box">
+      <h4>Tips for using this section effectively</h4>
+      <ul>
+        <li>Apply early — many internships recruit months in advance</li>
+        <li>Apply to multiple opportunities to increase your chances</li>
+        <li>Customize your resume and practice interviewing skills</li>
+      </ul>
+    </div>
+  </div>
+  <div class="subpage-grid">
+    <div class="resource-card accent-blue" onclick="showDetail('linkedin')">
+      <div class="resource-icon">💼</div>
+      <div class="resource-title">LinkedIn</div>
+      <div class="resource-subtitle">Private Sector · Networking</div>
+      <div class="resource-desc">A professional networking platform combining job listings, profile-building, and direct connections with recruiters. Especially valuable for students because it pairs job searching with networking opportunities not found elsewhere.</div>
+      <div class="card-view-btn">View Details →</div>
+    </div>
+    <div class="resource-card accent-green" onclick="showDetail('usajobs')">
+      <div class="resource-icon">🏛️</div>
+      <div class="resource-title">USAJOBS</div>
+      <div class="resource-subtitle">Federal Government · Clearance Roles</div>
+      <div class="resource-desc">The official U.S. federal government job portal with internships, student programs, and full-time cybersecurity positions across agencies like DHS, NSA, CISA, and DoD. Pathways programs offer structured routes to full-time roles.</div>
+      <div class="card-view-btn">View Details →</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ TOOLS ══ -->
+<div class="page" id="page-tools">
+  <div class="section-hero">
+    <div class="section-hero-tag">Section 03 — Tools</div>
+    <h2 class="section-hero-title">Build Your Arsenal</h2>
+    <div class="section-abstract">
+      The Tools section introduces important cybersecurity tools that are used in professional environments. These tools help security professionals analyze data, detect threats, and respond to incidents. The section focuses on commonly used tools and explains their purpose and relevance to different cybersecurity roles.
+      <br><br>
+      This information is useful for students because it highlights the importance of hands-on experience. Employers often look for candidates who are familiar with industry tools, making it important to not only understand concepts but also apply them in practice. Learning these tools helps bridge the gap between theory and real-world work.
+    </div>
+    <div class="tips-box">
+      <h4>Tips for using this section effectively</h4>
+      <ul>
+        <li>Practice using tools in lab environments or virtual machines</li>
+        <li>Learn what each tool is used for before diving in</li>
+        <li>Connect tools to specific job roles to understand their purpose</li>
+      </ul>
+    </div>
+  </div>
+  <div class="subpage-grid">
+    <div class="resource-card accent-green" onclick="showDetail('wireshark')">
+      <div class="resource-icon">🦈</div>
+      <div class="resource-title">Wireshark</div>
+      <div class="resource-subtitle">Packet Analysis · Network Forensics</div>
+      <div class="resource-desc">A network analysis tool used to capture and examine traffic at the packet level. Widely used in network security, SOC analysis, and digital forensics. Free, open-source, and essential for understanding how networks actually operate.</div>
+      <div class="card-view-btn">View Details →</div>
+    </div>
+    <div class="resource-card accent-blue" onclick="showDetail('splunk')">
+      <div class="resource-icon">📊</div>
+      <div class="resource-title">Splunk</div>
+      <div class="resource-subtitle">SIEM · Log Analysis · Threat Detection</div>
+      <div class="resource-desc">A SIEM platform used to collect, search, and analyze log data to detect and respond to threats. Widely used in SOC environments and frequently listed as a requirement in security operations job postings. Free training available.</div>
+      <div class="card-view-btn">View Details →</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DETAIL: CompTIA ══ -->
+<div class="subpage-detail" id="detail-comptia">
+  <div class="detail-hero">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-subtitle">Certifications → CompTIA</div>
+    <h1 class="detail-title">CompTIA</h1>
+  </div>
+  <div class="detail-body">
+    <div class="detail-content">
+      <div class="detail-block">
+        <h3>What is CompTIA?</h3>
+        <p>CompTIA (Computing Technology Industry Association) is a certification provider that offers vendor-neutral certifications in information technology and cybersecurity. These certifications — including Security+, Network+, and CySA+ — are designed to teach foundational and intermediate-level skills that can be applied across many different systems and environments. Unlike vendor-specific certifications, CompTIA focuses on general knowledge that is useful regardless of the tools or technologies a company uses.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Popular Certifications</h3>
+        <ul>
+          <li><strong>Security+</strong> — The most popular entry-level cybersecurity cert globally. Covers threats, attacks, network security, cryptography, and risk management. Required by U.S. DoD contractors under DoD 8570.</li>
+          <li><strong>Network+</strong> — Covers networking fundamentals, infrastructure, and troubleshooting. An excellent prerequisite before Security+, especially if you are new to IT.</li>
+          <li><strong>CySA+</strong> — Focused on threat detection and incident response. Great next step after Security+ for those pursuing SOC or analyst roles.</li>
+        </ul>
+        <div class="cert-badges" style="margin-top:1rem"><span class="cert-badge">Security+</span><span class="cert-badge">Network+</span><span class="cert-badge">CySA+</span><span class="cert-badge">PenTest+</span></div>
+      </div>
+      <div class="detail-block">
+        <h3>Why It's Good for Beginners</h3>
+        <p>CompTIA certifications are designed to be accessible to candidates with limited work experience. The content offered includes structured exam objectives, study materials, and certification tests that cover topics such as networking, threat detection, and security fundamentals. This makes it especially useful for students who are just beginning their cybersecurity journey. Free platforms like Professor Messer offer full exam prep at no cost.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Why Employers Recognize It</h3>
+        <p>Many employers recognize CompTIA certifications, and they are often listed as requirements for entry-level roles, particularly in government and contractor positions. Federal government contractors are frequently required by law to hold Security+ or equivalent under DoD 8570. Private-sector hiring managers treat it as a reliable baseline that filters for serious candidates who have put in the study time.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Tips for Using This Resource</h3>
+        <ul>
+          <li>Start with Security+ as your first cybersecurity certification</li>
+          <li>Use free resources like videos and practice exams to prepare</li>
+          <li>Treat CompTIA certifications as a foundation before moving to advanced options</li>
+        </ul>
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <a class="visit-link" href="https://www.comptia.org" target="_blank">Visit CompTIA.org ↗</a>
+      <div class="sidebar-box">
+        <h4>Resource Abstract</h4>
+        <p>CompTIA is a certification provider that offers vendor-neutral certifications in information technology and cybersecurity. These certifications are designed to teach foundational and intermediate-level skills applicable across many systems and environments. Many employers recognize CompTIA certifications, and they are often listed as requirements for entry-level roles, particularly in government and contractor positions.</p>
+      </div>
+      <div class="sidebar-box">
+        <h4>Best For</h4>
+        <p>Students new to cybersecurity, those transitioning from IT helpdesk roles, and anyone pursuing government contractor or DoD-adjacent positions.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DETAIL: Offensive Security ══ -->
+<div class="subpage-detail" id="detail-offsec">
+  <div class="detail-hero">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-subtitle">Certifications → Offensive Security</div>
+    <h1 class="detail-title">Offensive Security</h1>
+  </div>
+  <div class="detail-body">
+    <div class="detail-content">
+      <div class="detail-block">
+        <h3>What is Offensive Security?</h3>
+        <p>Offensive Security is a cybersecurity training organization that focuses on hands-on learning and real-world application. Unlike traditional certification providers that rely on multiple-choice exams, Offensive Security requires users to demonstrate their skills in lab environments by completing realistic challenges. Their certifications are designed to test problem-solving ability and technical skill rather than memorization.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Focus on Hands-On Training</h3>
+        <p>The OffSec philosophy is "Try Harder" — a culture of pushing past frustration to develop real problem-solving skills under pressure. Their training platform includes a full course with thousands of practice machines in a dedicated lab network, mirroring what red teamers and penetration testers actually do on the job.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Certifications</h3>
+        <ul>
+          <li><strong>OSCP (Offensive Security Certified Professional)</strong> — The flagship certification. A 24-hour live exam where you must compromise a set of machines and write a professional penetration testing report. Widely considered the gold standard for entry-to-mid pentesting roles.</li>
+          <li><strong>OSEP</strong> — Advanced evasion and active directory attack techniques for experienced red teamers.</li>
+          <li><strong>OSED</strong> — Exploit development and advanced Windows exploitation techniques.</li>
+        </ul>
+        <div class="cert-badges" style="margin-top:1rem"><span class="cert-badge">OSCP</span><span class="cert-badge">OSEP</span><span class="cert-badge">OSED</span></div>
+      </div>
+      <div class="detail-block">
+        <h3>Why It's Useful for Pentesting / Offensive Roles</h3>
+        <p>The organization is best known for the OSCP certification, which requires users to perform penetration testing tasks in a controlled environment. This makes it highly valuable for students interested in offensive security roles such as ethical hacking or penetration testing. Because of its difficulty and practical focus, it is widely respected by employers in the cybersecurity industry.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Tips for Using This Resource</h3>
+        <ul>
+          <li>Build a strong foundation in networking and security before starting</li>
+          <li>Practice consistently in labs to develop problem-solving skills</li>
+          <li>Be prepared to spend significant time learning and experimenting</li>
+        </ul>
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <a class="visit-link" href="https://www.offsec.com" target="_blank">Visit OffSec.com ↗</a>
+      <div class="sidebar-box">
+        <h4>Resource Abstract</h4>
+        <p>Offensive Security is a cybersecurity training organization focused on hands-on learning and real-world application. Their OSCP certification requires users to perform penetration testing tasks in a controlled environment, making it highly valuable for students interested in offensive security roles such as ethical hacking or penetration testing. Because of its difficulty and practical focus, it is widely respected by employers across the cybersecurity industry.</p>
+      </div>
+      <div class="sidebar-box">
+        <h4>Best For</h4>
+        <p>Students targeting offensive security, red team, or penetration testing careers. Expect to invest significant lab time before attempting the OSCP exam.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DETAIL: SANS ══ -->
+<div class="subpage-detail" id="detail-sans">
+  <div class="detail-hero">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-subtitle">Certifications → SANS Institute</div>
+    <h1 class="detail-title">SANS Institute</h1>
+  </div>
+  <div class="detail-body">
+    <div class="detail-content">
+      <div class="detail-block">
+        <h3>What is SANS?</h3>
+        <p>The SANS Institute is a cybersecurity training organization that provides advanced education and certifications through its GIAC certification program. It offers a wide range of courses covering topics such as incident response, digital forensics, penetration testing, and cloud security. These programs are taught by experienced professionals and are designed to reflect real-world cybersecurity challenges.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Advanced Training &amp; GIAC Certifications</h3>
+        <p>GIAC (Global Information Assurance Certification) administers exams independently from course attendance, ensuring that certifications reflect genuine mastery. Popular GIAC certifications include:</p>
+        <ul style="margin-top:0.75rem">
+          <li><strong>GSEC</strong> — GIAC Security Essentials. Broad foundational coverage across security domains.</li>
+          <li><strong>GCIH</strong> — Incident Handler certification. Highly valued in SOC and IR roles.</li>
+          <li><strong>GPEN</strong> — Penetration Tester. Respected for offensive security roles.</li>
+          <li><strong>GCFE / GCFA</strong> — Forensic Examiner certifications for digital forensics tracks.</li>
+        </ul>
+        <div class="cert-badges" style="margin-top:1rem"><span class="cert-badge">GSEC</span><span class="cert-badge">GCIH</span><span class="cert-badge">GPEN</span><span class="cert-badge">GCFA</span></div>
+      </div>
+      <div class="detail-block">
+        <h3>Why It's Respected in Enterprise &amp; Government</h3>
+        <p>SANS certifications are known for being rigorous and highly respected in both enterprise and government environments. They are often pursued by professionals later in their careers due to their advanced level and cost. However, they provide a strong pathway for specialization and are considered valuable credentials for higher-level cybersecurity roles. Many employers sponsor employees through SANS training because they trust its quality.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Tips for Using This Resource</h3>
+        <ul>
+          <li>Use SANS as a long-term goal rather than a starting point</li>
+          <li>Look into scholarships or work-study opportunities to reduce cost</li>
+          <li>Choose courses that match your specific career interests and intended specialization</li>
+        </ul>
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <a class="visit-link" href="https://www.sans.org" target="_blank">Visit SANS.org ↗</a>
+      <div class="sidebar-box">
+        <h4>Resource Abstract</h4>
+        <p>The SANS Institute provides advanced cybersecurity training and certifications through its GIAC program, covering incident response, digital forensics, penetration testing, and cloud security. These programs are taught by experienced professionals and designed to reflect real-world challenges. SANS certifications are highly respected in enterprise and government environments and represent a strong long-term investment for serious cybersecurity professionals.</p>
+      </div>
+      <div class="sidebar-box">
+        <h4>Best For</h4>
+        <p>Students targeting advanced roles in enterprise security, incident response, digital forensics, or government and defense. Often an employer-sponsored investment mid-career.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DETAIL: LinkedIn ══ -->
+<div class="subpage-detail" id="detail-linkedin">
+  <div class="detail-hero">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-subtitle">Internships → LinkedIn</div>
+    <h1 class="detail-title">LinkedIn</h1>
+  </div>
+  <div class="detail-body">
+    <div class="detail-content">
+      <div class="detail-block">
+        <h3>What is LinkedIn?</h3>
+        <p>LinkedIn is a professional networking platform that allows users to connect with others, search for jobs, and build an online presence. It includes features such as job listings, networking tools, and profile-building options that allow users to showcase their experience, certifications, and skills. It is widely used by recruiters and professionals across many industries, making it one of the most important platforms for entering any professional field.</p>
+      </div>
+      <div class="detail-block">
+        <h3>How It Helps Students Find Internships</h3>
+        <p>For cybersecurity students, LinkedIn is especially valuable because it combines job searching with networking opportunities. Users can connect with professionals, follow companies, and discover internship opportunities that may not be listed elsewhere. Job search filters let you target internship roles by discipline, location, company size, and work arrangement — and setting up alerts means you're notified as soon as relevant roles are posted.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Why Networking Matters Here</h3>
+        <p>A large percentage of jobs are filled through referrals before they are publicly posted. LinkedIn is where that process happens. Connecting with cybersecurity professionals, engaging with their content, and reaching out for informational interviews can surface unadvertised opportunities and get your name in front of hiring managers before you ever submit an application.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Tips for Using LinkedIn Effectively</h3>
+        <ul>
+          <li>Keep your profile complete and up to date — complete profiles rank higher in recruiter searches</li>
+          <li>Connect with professionals in cybersecurity fields using personalized connection requests</li>
+          <li>Add certifications, projects, and lab work to your Experience and Licenses sections</li>
+          <li>Use job alerts to stay informed about new opportunities as soon as they are posted</li>
+          <li>Post about your learning journey to build visibility with recruiters and peers</li>
+        </ul>
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <a class="visit-link" href="https://www.linkedin.com/jobs" target="_blank">Visit LinkedIn Jobs ↗</a>
+      <div class="sidebar-box">
+        <h4>Resource Abstract</h4>
+        <p>LinkedIn is a professional networking platform that allows users to connect with others, search for jobs, and build an online presence. It includes job listings, networking tools, and profile-building features that allow users to showcase experience, certifications, and skills. For cybersecurity students, it is especially valuable because it combines job searching with networking opportunities — including internships that may not be listed on other platforms.</p>
+      </div>
+      <div class="sidebar-box">
+        <h4>Best For</h4>
+        <p>All students targeting private-sector internships. Also valuable for building professional relationships, finding mentors, and increasing visibility with recruiters.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DETAIL: USAJOBS ══ -->
+<div class="subpage-detail" id="detail-usajobs">
+  <div class="detail-hero">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-subtitle">Internships → USAJOBS</div>
+    <h1 class="detail-title">USAJOBS</h1>
+  </div>
+  <div class="detail-body">
+    <div class="detail-content">
+      <div class="detail-block">
+        <h3>What is USAJOBS?</h3>
+        <p>USAJOBS is the official job website for the United States federal government and serves as the main platform for finding government employment opportunities. It includes listings for internships, student programs, and full-time positions across a wide range of agencies, including those focused on cybersecurity such as DHS, NSA, CISA, DoD, and the FBI.</p>
+      </div>
+      <div class="detail-block">
+        <h3>How It Helps Students Find Government Internships</h3>
+        <p>This resource is especially useful for students interested in government careers because it provides access to positions that are not typically listed on other job platforms. Programs such as Pathways offer structured opportunities for students to gain experience and transition into full-time roles. The Pathways Internship Program is specifically designed for current students and can lead directly to permanent federal employment after graduation.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Why It's Useful for Federal Cybersecurity Roles</h3>
+        <p>The federal government is the largest employer of cybersecurity professionals in the United States. Federal cybersecurity roles often come with strong benefits, job stability, and the opportunity to work on national-scale security challenges. Many positions also sponsor security clearances — a credential that dramatically expands private-sector opportunities as well.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Tips for Using USAJOBS Effectively</h3>
+        <ul>
+          <li>Create a complete profile before applying — your resume lives there and feeds into every application</li>
+          <li>Apply early: federal application windows often close quickly and cannot be reopened</li>
+          <li>Read job descriptions carefully to meet all eligibility requirements</li>
+          <li>Use saved searches to track new opportunities as they are posted</li>
+          <li>Search specifically for Pathways Internship Program positions if you are currently enrolled</li>
+        </ul>
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <a class="visit-link" href="https://www.usajobs.gov" target="_blank">Visit USAJOBS.gov ↗</a>
+      <div class="sidebar-box">
+        <h4>Resource Abstract</h4>
+        <p>USAJOBS is the official job website for the United States federal government and serves as the main platform for finding government employment opportunities. It includes listings for internships, student programs, and full-time cybersecurity positions across agencies including DHS, NSA, CISA, and DoD. Programs such as Pathways offer structured opportunities for students to gain experience and transition into full-time federal roles.</p>
+      </div>
+      <div class="sidebar-box">
+        <h4>Best For</h4>
+        <p>Students interested in federal agency cybersecurity, defense sector roles, national security, or starting a career path toward a security clearance.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DETAIL: Wireshark ══ -->
+<div class="subpage-detail" id="detail-wireshark">
+  <div class="detail-hero">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-subtitle">Tools → Wireshark</div>
+    <h1 class="detail-title">Wireshark</h1>
+  </div>
+  <div class="detail-body">
+    <div class="detail-content">
+      <div class="detail-block">
+        <h3>What is Wireshark?</h3>
+        <p>Wireshark is a network analysis tool used to capture and examine network traffic. It allows users to view data at the packet level and understand how information flows across a network. This makes it a valuable tool for analyzing communication between systems and identifying potential security issues. It is free, open-source, and used by security professionals worldwide.</p>
+      </div>
+      <div class="detail-block">
+        <h3>How It's Used for Packet Analysis</h3>
+        <p>Wireshark captures raw network packets and decodes them across hundreds of protocols — TCP/IP, DNS, HTTP, TLS, ARP, and more. Analysts use it to reconstruct sessions, identify malicious traffic patterns, detect credential leaks over unencrypted protocols, and analyze malware communication. Its display filter system allows precise focus on specific traffic of interest.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Why It's Important for Networking, SOC, and Forensics</h3>
+        <p>The tool is widely used in cybersecurity roles such as network security, SOC analysis, and digital forensics. It provides insight into how networks operate and helps users detect suspicious or malicious activity. For students, learning Wireshark builds a strong foundation in networking and analysis that translates across multiple career paths.</p>
+        <ul style="margin-top:0.75rem">
+          <li><strong>SOC Analysts</strong> use Wireshark to investigate alerts and confirm whether activity is benign or malicious.</li>
+          <li><strong>Incident Responders</strong> analyze capture files to reconstruct attacker activity.</li>
+          <li><strong>Digital Forensics</strong> examiners use captures as evidence in investigations.</li>
+        </ul>
+      </div>
+      <div class="detail-block">
+        <h3>Tips for Beginners Using Wireshark</h3>
+        <ul>
+          <li>Start by analyzing basic network traffic to understand how it works</li>
+          <li>Learn common display filters to make analysis easier and more targeted</li>
+          <li>Practice using sample datasets to build experience before working on live captures</li>
+          <li>Follow TCP streams to reconstruct full conversations between hosts</li>
+          <li>Study how common attack traffic looks: ARP poisoning, port scans, unencrypted credentials</li>
+        </ul>
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <a class="visit-link" href="https://www.wireshark.org" target="_blank">Visit Wireshark.org ↗</a>
+      <div class="sidebar-box">
+        <h4>Resource Abstract</h4>
+        <p>Wireshark is a network analysis tool used to capture and examine network traffic at the packet level. It is widely used in cybersecurity roles such as network security, SOC analysis, and digital forensics, providing insight into how networks operate and helping users detect suspicious or malicious activity. For students, learning Wireshark builds a strong foundation in networking and analysis that directly supports job readiness.</p>
+      </div>
+      <div class="sidebar-box">
+        <h4>Best For</h4>
+        <p>Students targeting SOC Analyst, Network Security Engineer, Incident Responder, or Digital Forensics roles. Foundational knowledge for any cybersecurity specialization.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DETAIL: Splunk ══ -->
+<div class="subpage-detail" id="detail-splunk">
+  <div class="detail-hero">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <div class="detail-subtitle">Tools → Splunk</div>
+    <h1 class="detail-title">Splunk</h1>
+  </div>
+  <div class="detail-body">
+    <div class="detail-content">
+      <div class="detail-block">
+        <h3>What is Splunk?</h3>
+        <p>Splunk is a Security Information and Event Management (SIEM) platform used to collect and analyze log data from different systems. It allows users to search, monitor, and visualize data in order to detect and respond to security threats. It is commonly used in security operations centers to investigate incidents and monitor activity across an organization's infrastructure.</p>
+      </div>
+      <div class="detail-block">
+        <h3>How It's Used in SOC Environments</h3>
+        <p>In a typical SOC, Splunk is the central platform where alerts surface, investigations begin, and threat hunting happens. Security analysts write SPL (Splunk Processing Language) queries to search logs, correlate events across systems, and identify patterns consistent with known attack techniques. Automated alerts fire when anomalies exceed defined thresholds, enabling faster detection and response.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Why It Matters for Log Analysis and Threat Detection</h3>
+        <p>This tool is especially important for students interested in SOC roles because it is widely used in professional environments. Understanding how to use Splunk can make candidates more competitive in the job market and better prepared for real-world cybersecurity tasks. Splunk proficiency is frequently listed as a direct requirement in security operations job postings, making it one of the highest-value tools to learn.</p>
+      </div>
+      <div class="detail-block">
+        <h3>Tips for Beginners Using Splunk</h3>
+        <ul>
+          <li>Take advantage of free training courses offered by Splunk Education</li>
+          <li>Practice writing queries to search and analyze data — start with index, stats, and table commands</li>
+          <li>Use sample datasets to simulate real-world scenarios before working on live environments</li>
+          <li>Work through the Boss of the SOC (BOTS) datasets for hands-on threat hunting practice</li>
+          <li>Consider the Splunk Core Certified User certification to formalize your knowledge</li>
+        </ul>
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <a class="visit-link" href="https://www.splunk.com" target="_blank">Visit Splunk.com ↗</a>
+      <div class="sidebar-box">
+        <h4>Resource Abstract</h4>
+        <p>Splunk is a SIEM platform used to collect and analyze log data in order to detect and respond to security threats. It is commonly used in security operations centers and is widely recognized by employers as a key tool for SOC roles. Free training and a developer-tier platform remove cost barriers for students, making Splunk one of the highest-value tools to learn when preparing for a career in cybersecurity.</p>
+      </div>
+      <div class="sidebar-box">
+        <h4>Best For</h4>
+        <p>Students targeting SOC Analyst, Security Operations Engineer, Threat Hunter, or Incident Response roles. Splunk skills are among the most frequently listed requirements in security operations job postings.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  let currentPage = 'home';
+
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.subpage-detail').forEach(d => d.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    currentPage = page;
+    document.querySelectorAll('.nav-simple, .nav-item-label').forEach(el => el.classList.remove('active'));
+    const el = document.getElementById('nav-' + page);
+    if (el) el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function showDetail(detail) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.subpage-detail').forEach(d => d.classList.remove('active'));
+    document.getElementById('detail-' + detail).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function goBack() { showPage(currentPage); }
+</script>
+</body>
+</html>
